@@ -11,7 +11,7 @@ served automatically by GitHub Pages. No build step, no framework, no branches.
    go in the same folder; reference them with **relative paths** (`./style.css`, not `/style.css`).
 3. Commit to `main`. The artifact is live in about 30–60 seconds at:
 
-   `https://czarnowski-collective.github.io/artifacts/<folder-name>/`
+   `https://czarnowskicollective.github.io/artifacts/<folder-name>/`
 
 ## Rules for agents
 
@@ -34,7 +34,7 @@ served automatically by GitHub Pages. No build step, no framework, no branches.
 
 | Thing | Value |
 |---|---|
-| Hub root | https://czarnowski-collective.github.io/artifacts/ |
-| Artifact URL pattern | `https://czarnowski-collective.github.io/artifacts/<folder>/` |
+| Hub root | https://czarnowskicollective.github.io/artifacts/ |
+| Artifact URL pattern | `https://czarnowskicollective.github.io/artifacts/<folder>/` |
 | Deploy trigger | any push to `main` |
 | Deploy time | ~30–60 s (check with a hard refresh) |
