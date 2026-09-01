@@ -1,0 +1,33 @@
+name: Global Auto-Merge Enabler
+
+on:
+  pull_request:
+    types: [opened, reopened]
+
+jobs:
+  enable-automerge:
+    runs-on: ubuntu-latest
+    
+    permissions:
+      pull-requests: write
+      contents: write
+
+    steps:
+      - name: Auto-publish Claude Drafts
+        if: github.event.pull_request.draft == true
+        run: gh pr ready "$PR_URL"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Merge-commit method: squash + rebase are disabled repo-wide so that a
+      # development → main promotion keeps `development` as an ancestor of `main`
+      # and the next promotion is conflict-free (see CLAUDE.md "Git / PR workflow").
+      # Scoped to development-targeted PRs so development → main promotions to
+      # production stay a manual, founder-gated merge rather than auto-merging.
+      - name: Enable GitHub Auto-Merge
+        if: github.event.pull_request.base.ref == 'main'
+        run: gh pr merge --auto --merge "$PR_URL"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
