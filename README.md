@@ -16,6 +16,7 @@ workflow and house rules.
 | Artifact | Live link |
 |---|---|
 | `demo` | https://czarnowskicollective.github.io/artifacts/demo/ |
+| `rfp-assessment-calculator` | https://czarnowskicollective.github.io/artifacts/rfp-assessment-calculator/ |
 
 > Agents: keep this table current — add a row in the same commit that adds an
 > artifact, remove the row when an artifact is removed.
