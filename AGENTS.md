@@ -38,3 +38,29 @@ served automatically by GitHub Pages. No build step, no framework, no branches.
 | Artifact URL pattern | `https://czarnowskicollective.github.io/artifacts/<folder>/` |
 | Deploy trigger | any push to `main` |
 | Deploy time | ~30–60 s (check with a hard refresh) |
+
+## Password-gated artifacts
+
+`rfp-assessment-calculator/` is locked: the real page is stored as an AES-256-GCM
+ciphertext and the gate derives the key from the password with PBKDF2. Two rules
+follow from that.
+
+**Don't hand-edit a locked page.** Editing `index.html` directly will either
+break the gate or silently drop your change (the visible file is the wrapper, not
+the content). To change locked content, decrypt it, edit the plaintext, and
+re-encrypt with `tools/rotate_gate_password.py`.
+
+**The password rotates itself.** `.github/workflows/rotate-gate-password.yml`
+runs each weekday and rotates the gate password every 10 US business days,
+committing the re-encrypted page. Passwords are never stored: each one is derived
+from the `GATE_MASTER_KEY` Actions secret plus the rotation index recorded in
+`.gate-rotation/<artifact>.json`, which is public state and holds no secret. Leave
+that file to the workflow.
+
+| Thing | Value |
+|---|---|
+| Rotation engine | `tools/rotate_gate_password.py` |
+| Rotation state | `.gate-rotation/rfp-assessment-calculator.json` |
+| Interval | 10 US business days (federal holidays excluded) |
+| Secret | `GATE_MASTER_KEY` (repo Actions secret, never rotated) |
+| Manual run | Actions → *Rotate Artifact Gate Password* → Run workflow |
