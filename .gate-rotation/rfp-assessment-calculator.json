@@ -1,0 +1,9 @@
+{
+  "artifact": "rfp-assessment-calculator",
+  "index": 1,
+  "last_rotated": "2026-09-02",
+  "next_due": "2026-09-17",
+  "interval_business_days": 10,
+  "payload_sha256": "2f25c6624dec35f078060c80955bf0fc540f8b7a6d5fcc42d11898b217f4c44e",
+  "note": "Public rotation state. Contains no secrets; the password is derived from GATE_MASTER_KEY plus the index above."
+}
