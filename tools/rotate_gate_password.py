@@ -191,6 +191,9 @@ def load_state(path):
 
 
 def save_state(path, state):
+    parent = os.path.dirname(path)
+    if parent:
+        os.makedirs(parent, exist_ok=True)
     with open(path, "w") as fh:
         json.dump(state, fh, indent=2)
         fh.write("\n")
